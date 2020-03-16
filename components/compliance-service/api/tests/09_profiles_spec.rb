@@ -388,4 +388,14 @@ describe File.basename(__FILE__) do
     assert_equal 1, res.size
     assert_kind_of Profiles::ProfileData, res.first
   end
+
+  # These check if a profile metadata exists in the comp-*-profiles ES index, via ingestion or profile import/upload
+  it "checks for a missing profile metadata" do
+    res = GRPC profiles, :meta_exists, Profiles::Sha256.new(sha256: '123456')
+    assert_equal res.exists, false
+  end
+  it "checks for an existing profile metadata" do
+    res = GRPC profiles, :meta_exists, Profiles::Sha256.new(sha256: '5596bb07ef4f11fd2e03a0a80c4adb7c61fc0b4d0aa6c1410b3c715c94b367da')
+    assert_equal res.exists, true
+  end
 end

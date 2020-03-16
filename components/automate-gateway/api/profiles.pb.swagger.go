@@ -342,6 +342,15 @@ func init() {
         }
       }
     },
+    "chef.automate.api.compliance.profiles.v1.Exists": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      }
+    },
     "chef.automate.api.compliance.profiles.v1.Group": {
       "type": "object",
       "properties": {

@@ -142,6 +142,15 @@ service ProfilesService {
 			action: "compliance:profiles:list"
 		};
 	};
+	rpc MetaExists(Sha256) returns (Exists) {};
+}
+
+message Sha256 {
+	string sha256 = 1;
+}
+
+message Exists {
+	bool exists = 1;
 }
 
 message ProfilePostRequest {

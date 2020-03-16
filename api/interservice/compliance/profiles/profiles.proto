@@ -14,12 +14,21 @@ service ProfilesService {
     rpc ReadTar(ProfileDetails) returns (stream ProfileData) {};
     rpc Delete (ProfileDetails) returns (google.protobuf.Empty) {};
     rpc List (Query) returns (Profiles) {};
+	rpc MetaExists(Sha256) returns (Exists) {};
 }
 
 // no public api, just for administration
 service ProfilesAdminService {
     rpc RebuildElasticCache(google.protobuf.Empty) returns (google.protobuf.Empty) {};
     rpc MigrateDiskProfiles(google.protobuf.Empty) returns (google.protobuf.Empty) {};
+}
+
+message Sha256 {
+	string sha256 = 1;
+}
+
+message Exists {
+	bool exists = 1;
 }
 
 message ProfilePostRequest {
