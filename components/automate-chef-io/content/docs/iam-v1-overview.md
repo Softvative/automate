@@ -335,7 +335,7 @@ By default, Chef Automate is initialized with policies that allow the following:
 * Admin users can perform any action on any Chef Automate resource.
 * All non-Admin users can perform any action on Chef Automate resources,
   with the exception of actions on resources related to authorization (`auth`) or other system level resources.
-  Only Admins can modify teams, API tokens, other users, policies, notifications, and node lifecycle settings.
+  Only Admins can modify teams, API tokens, other users, policies, notifications, and data lifecycle settings.
 
 See the [IAM v1 Policies]({{< relref "iam-v1-policies.md" >}}) documentation for more information
 on how Chef Automate's default policies map to different functions.
