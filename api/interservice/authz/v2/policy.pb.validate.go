@@ -203,10 +203,10 @@ func (m *CreatePolicyReq) Validate() error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetName()) < 1 {
+	if !_CreatePolicyReq_Name_Pattern.MatchString(m.GetName()) {
 		return CreatePolicyReqValidationError{
 			field:  "Name",
-			reason: "value length must be at least 1 runes",
+			reason: "value does not match regex pattern \"\\\\S\"",
 		}
 	}
 
@@ -336,6 +336,8 @@ var _ interface {
 } = CreatePolicyReqValidationError{}
 
 var _CreatePolicyReq_Id_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
+
+var _CreatePolicyReq_Name_Pattern = regexp.MustCompile("\\S")
 
 var _CreatePolicyReq_Members_Pattern = regexp.MustCompile("^(?:team|user):(?:local|ldap|saml):(?:[^:*]+|[*])$|^(?:(?:team|user|token|tls):)?[*]$|^token:[^:*]+$|^tls:service:(?:[^:*]+:)?(?:[^:*]+|[*])$")
 
@@ -909,7 +911,12 @@ func (m *UpdatePolicyReq) Validate() error {
 
 	}
 
-	// no validation rules for Name
+	if !_UpdatePolicyReq_Name_Pattern.MatchString(m.GetName()) {
+		return UpdatePolicyReqValidationError{
+			field:  "Name",
+			reason: "value does not match regex pattern \"\\\\S\"",
+		}
+	}
 
 	_UpdatePolicyReq_Projects_Unique := make(map[string]struct{}, len(m.GetProjects()))
 
@@ -994,6 +1001,8 @@ var _ interface {
 var _UpdatePolicyReq_Id_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
 
 var _UpdatePolicyReq_Members_Pattern = regexp.MustCompile("^(?:team|user):(?:local|ldap|saml):(?:[^:*]+|[*])$|^(?:(?:team|user|token|tls):)?[*]$|^token:[^:*]+$|^tls:service:(?:[^:*]+:)?(?:[^:*]+|[*])$")
+
+var _UpdatePolicyReq_Name_Pattern = regexp.MustCompile("\\S")
 
 var _UpdatePolicyReq_Projects_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
 
@@ -1177,6 +1186,13 @@ func (m *AddPolicyMembersReq) Validate() error {
 		return AddPolicyMembersReqValidationError{
 			field:  "Id",
 			reason: "value does not match regex pattern \"^[a-z0-9-_]{1,64}$\"",
+		}
+	}
+
+	if len(m.GetMembers()) < 1 {
+		return AddPolicyMembersReqValidationError{
+			field:  "Members",
+			reason: "value must contain at least 1 item(s)",
 		}
 	}
 
@@ -1851,6 +1867,13 @@ func (m *UpdateRoleReq) Validate() error {
 		}
 	}
 
+	if len(m.GetActions()) < 1 {
+		return UpdateRoleReqValidationError{
+			field:  "Actions",
+			reason: "value must contain at least 1 item(s)",
+		}
+	}
+
 	_UpdateRoleReq_Actions_Unique := make(map[string]struct{}, len(m.GetActions()))
 
 	for idx, item := range m.GetActions() {
@@ -2117,6 +2140,13 @@ func (m *RemovePolicyMembersReq) Validate() error {
 		return RemovePolicyMembersReqValidationError{
 			field:  "Id",
 			reason: "value does not match regex pattern \"^[a-z0-9-_]{1,64}$\"",
+		}
+	}
+
+	if len(m.GetMembers()) < 1 {
+		return RemovePolicyMembersReqValidationError{
+			field:  "Members",
+			reason: "value must contain at least 1 item(s)",
 		}
 	}
 
@@ -2629,6 +2659,13 @@ func (m *CreateRoleReq) Validate() error {
 		return CreateRoleReqValidationError{
 			field:  "Name",
 			reason: "value does not match regex pattern \"\\\\S\"",
+		}
+	}
+
+	if len(m.GetActions()) < 1 {
+		return CreateRoleReqValidationError{
+			field:  "Actions",
+			reason: "value must contain at least 1 item(s)",
 		}
 	}
 

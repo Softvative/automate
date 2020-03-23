@@ -113,7 +113,12 @@ func (m *CreateProjectReq) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Name
+	if !_CreateProjectReq_Name_Pattern.MatchString(m.GetName()) {
+		return CreateProjectReqValidationError{
+			field:  "Name",
+			reason: "value does not match regex pattern \"\\\\S\"",
+		}
+	}
 
 	if !_CreateProjectReq_Id_Pattern.MatchString(m.GetId()) {
 		return CreateProjectReqValidationError{
@@ -178,6 +183,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateProjectReqValidationError{}
+
+var _CreateProjectReq_Name_Pattern = regexp.MustCompile("\\S")
 
 var _CreateProjectReq_Id_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
 
@@ -560,7 +567,12 @@ func (m *UpdateProjectReq) Validate() error {
 		return nil
 	}
 
-	// no validation rules for Name
+	if !_UpdateProjectReq_Name_Pattern.MatchString(m.GetName()) {
+		return UpdateProjectReqValidationError{
+			field:  "Name",
+			reason: "value does not match regex pattern \"\\\\S\"",
+		}
+	}
 
 	if !_UpdateProjectReq_Id_Pattern.MatchString(m.GetId()) {
 		return UpdateProjectReqValidationError{
@@ -625,6 +637,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateProjectReqValidationError{}
+
+var _UpdateProjectReq_Name_Pattern = regexp.MustCompile("\\S")
 
 var _UpdateProjectReq_Id_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
 
@@ -1667,10 +1681,10 @@ func (m *CreateRuleReq) Validate() error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetName()) < 1 {
+	if !_CreateRuleReq_Name_Pattern.MatchString(m.GetName()) {
 		return CreateRuleReqValidationError{
 			field:  "Name",
-			reason: "value length must be at least 1 runes",
+			reason: "value does not match regex pattern \"\\\\S\"",
 		}
 	}
 
@@ -1758,6 +1772,8 @@ var _ interface {
 var _CreateRuleReq_Id_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
 
 var _CreateRuleReq_ProjectId_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
+
+var _CreateRuleReq_Name_Pattern = regexp.MustCompile("\\S")
 
 // Validate checks the field values on CreateRuleResp with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
@@ -1856,10 +1872,10 @@ func (m *UpdateRuleReq) Validate() error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetName()) < 1 {
+	if !_UpdateRuleReq_Name_Pattern.MatchString(m.GetName()) {
 		return UpdateRuleReqValidationError{
 			field:  "Name",
-			reason: "value length must be at least 1 runes",
+			reason: "value does not match regex pattern \"\\\\S\"",
 		}
 	}
 
@@ -1947,6 +1963,8 @@ var _ interface {
 var _UpdateRuleReq_Id_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
 
 var _UpdateRuleReq_ProjectId_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
+
+var _UpdateRuleReq_Name_Pattern = regexp.MustCompile("\\S")
 
 // Validate checks the field values on UpdateRuleResp with the rules defined in
 // the proto definition for this message. If any rules are violated, an error

@@ -48,7 +48,12 @@ func (m *CreateTokenReq) Validate() error {
 		}
 	}
 
-	// no validation rules for Description
+	if !_CreateTokenReq_Description_Pattern.MatchString(m.GetDescription()) {
+		return CreateTokenReqValidationError{
+			field:  "Description",
+			reason: "value does not match regex pattern \"\\\\S\"",
+		}
+	}
 
 	// no validation rules for Active
 
@@ -134,6 +139,8 @@ var _ interface {
 
 var _CreateTokenReq_Id_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$|^$")
 
+var _CreateTokenReq_Description_Pattern = regexp.MustCompile("\\S")
+
 var _CreateTokenReq_Projects_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
 
 // Validate checks the field values on CreateTokenWithValueReq with the rules
@@ -146,7 +153,12 @@ func (m *CreateTokenWithValueReq) Validate() error {
 
 	// no validation rules for Id
 
-	// no validation rules for Description
+	if !_CreateTokenWithValueReq_Description_Pattern.MatchString(m.GetDescription()) {
+		return CreateTokenWithValueReqValidationError{
+			field:  "Description",
+			reason: "value does not match regex pattern \"\\\\S\"",
+		}
+	}
 
 	// no validation rules for Active
 
@@ -234,6 +246,8 @@ var _ interface {
 	ErrorName() string
 } = CreateTokenWithValueReqValidationError{}
 
+var _CreateTokenWithValueReq_Description_Pattern = regexp.MustCompile("\\S")
+
 var _CreateTokenWithValueReq_Projects_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
 
 // Validate checks the field values on UpdateTokenReq with the rules defined in
@@ -248,7 +262,12 @@ func (m *UpdateTokenReq) Validate() error {
 
 	// no validation rules for Active
 
-	// no validation rules for Description
+	if !_UpdateTokenReq_Description_Pattern.MatchString(m.GetDescription()) {
+		return UpdateTokenReqValidationError{
+			field:  "Description",
+			reason: "value does not match regex pattern \"\\\\S\"",
+		}
+	}
 
 	_UpdateTokenReq_Projects_Unique := make(map[string]struct{}, len(m.GetProjects()))
 
@@ -329,6 +348,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateTokenReqValidationError{}
+
+var _UpdateTokenReq_Description_Pattern = regexp.MustCompile("\\S")
 
 var _UpdateTokenReq_Projects_Pattern = regexp.MustCompile("^[a-z0-9-_]{1,64}$")
 

@@ -40,10 +40,10 @@ func (m *Email) Validate() error {
 		return nil
 	}
 
-	if utf8.RuneCountInString(m.GetEmail()) < 1 {
+	if !_Email_Email_Pattern.MatchString(m.GetEmail()) {
 		return EmailValidationError{
 			field:  "Email",
-			reason: "value length must be at least 1 runes",
+			reason: "value does not match regex pattern \"\\\\S\"",
 		}
 	}
 
@@ -103,6 +103,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = EmailValidationError{}
+
+var _Email_Email_Pattern = regexp.MustCompile("\\S")
 
 // Validate checks the field values on GetUsersReq with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
@@ -249,10 +251,10 @@ func (m *CreateUserReq) Validate() error {
 
 	// no validation rules for Id
 
-	if utf8.RuneCountInString(m.GetName()) < 1 {
+	if !_CreateUserReq_Name_Pattern.MatchString(m.GetName()) {
 		return CreateUserReqValidationError{
 			field:  "Name",
-			reason: "value length must be at least 1 runes",
+			reason: "value does not match regex pattern \"\\\\S\"",
 		}
 	}
 
@@ -322,6 +324,8 @@ var _ interface {
 	ErrorName() string
 } = CreateUserReqValidationError{}
 
+var _CreateUserReq_Name_Pattern = regexp.MustCompile("\\S")
+
 var _CreateUserReq_Email_Pattern = regexp.MustCompile("^[[:alnum:]_.+@-]+$")
 
 // Validate checks the field values on UpdateUserReq with the rules defined in
@@ -332,10 +336,10 @@ func (m *UpdateUserReq) Validate() error {
 		return nil
 	}
 
-	if utf8.RuneCountInString(m.GetId()) < 1 {
+	if !_UpdateUserReq_Id_Pattern.MatchString(m.GetId()) {
 		return UpdateUserReqValidationError{
 			field:  "Id",
-			reason: "value length must be at least 1 runes",
+			reason: "value does not match regex pattern \"\\\\S\"",
 		}
 	}
 
@@ -346,10 +350,10 @@ func (m *UpdateUserReq) Validate() error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetName()) < 1 {
+	if !_UpdateUserReq_Name_Pattern.MatchString(m.GetName()) {
 		return UpdateUserReqValidationError{
 			field:  "Name",
-			reason: "value length must be at least 1 runes",
+			reason: "value does not match regex pattern \"\\\\S\"",
 		}
 	}
 
@@ -412,7 +416,11 @@ var _ interface {
 	ErrorName() string
 } = UpdateUserReqValidationError{}
 
+var _UpdateUserReq_Id_Pattern = regexp.MustCompile("\\S")
+
 var _UpdateUserReq_Email_Pattern = regexp.MustCompile("^[[:alnum:]_.+@-]+$")
+
+var _UpdateUserReq_Name_Pattern = regexp.MustCompile("\\S")
 
 // Validate checks the field values on UpdateSelfReq with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
@@ -422,10 +430,10 @@ func (m *UpdateSelfReq) Validate() error {
 		return nil
 	}
 
-	if utf8.RuneCountInString(m.GetId()) < 1 {
+	if !_UpdateSelfReq_Id_Pattern.MatchString(m.GetId()) {
 		return UpdateSelfReqValidationError{
 			field:  "Id",
-			reason: "value length must be at least 1 runes",
+			reason: "value does not match regex pattern \"\\\\S\"",
 		}
 	}
 
@@ -436,10 +444,10 @@ func (m *UpdateSelfReq) Validate() error {
 		}
 	}
 
-	if utf8.RuneCountInString(m.GetName()) < 1 {
+	if !_UpdateSelfReq_Name_Pattern.MatchString(m.GetName()) {
 		return UpdateSelfReqValidationError{
 			field:  "Name",
-			reason: "value length must be at least 1 runes",
+			reason: "value does not match regex pattern \"\\\\S\"",
 		}
 	}
 
@@ -504,7 +512,11 @@ var _ interface {
 	ErrorName() string
 } = UpdateSelfReqValidationError{}
 
+var _UpdateSelfReq_Id_Pattern = regexp.MustCompile("\\S")
+
 var _UpdateSelfReq_Email_Pattern = regexp.MustCompile("^[[:alnum:]_.+@-]+$")
+
+var _UpdateSelfReq_Name_Pattern = regexp.MustCompile("\\S")
 
 // Validate checks the field values on DeleteUserResp with the rules defined in
 // the proto definition for this message. If any rules are violated, an error
