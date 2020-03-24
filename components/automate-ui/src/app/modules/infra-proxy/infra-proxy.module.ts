@@ -8,6 +8,7 @@ import { ChefComponentsModule } from 'app/components/chef-components.module';
 import { ChefServerDetailsComponent } from './chef-server-details/chef-server-details.component';
 import { ChefServersListComponent } from './chef-servers-list/chef-servers-list.component';
 import { CookbooksListComponent } from './cookbook-list/cookbooks-list.component';
+import { CookbookDetailsComponent } from './cookbook-details/cookbook-details.component';
 import { CreateChefServerModalComponent } from './create-chef-server-modal/create-chef-server-modal.component';
 import { CreateOrgModalComponent } from './create-org-modal/create-org-modal.component';
 
@@ -17,6 +18,7 @@ import { CreateOrgModalComponent } from './create-org-modal/create-org-modal.com
     ChefServersListComponent,
     ChefServerDetailsComponent,
     CookbooksListComponent,
+    CookbookDetailsComponent,
     CreateChefServerModalComponent,
     CreateOrgModalComponent
   ],
