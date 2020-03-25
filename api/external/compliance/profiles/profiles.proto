@@ -142,7 +142,20 @@ service ProfilesService {
 			action: "compliance:profiles:list"
 		};
 	};
-	rpc MetaExists(Sha256) returns (Exists) {};
+	rpc MetaExists(Sha256) returns (Exists) {
+        option (google.api.http) = {
+                post: "/compliance/profiles/metaexists"
+                body: "*"
+        };
+        option (chef.automate.api.policy) = {
+            resource: "compliance:profiles"
+            action: "search"
+        };
+        option (chef.automate.api.iam.policy) = {
+            resource: "compliance:profiles"
+            action: "compliance:profiles:list"
+        };
+	};
 }
 
 message Sha256 {

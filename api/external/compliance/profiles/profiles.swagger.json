@@ -52,6 +52,32 @@
         ]
       }
     },
+    "/compliance/profiles/metaexists": {
+      "post": {
+        "operationId": "MetaExists",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/chef.automate.api.compliance.profiles.v1.Exists"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/chef.automate.api.compliance.profiles.v1.Sha256"
+            }
+          }
+        ],
+        "tags": [
+          "ProfilesService"
+        ]
+      }
+    },
     "/compliance/profiles/read/{owner}/{name}/version/{version}": {
       "get": {
         "summary": "Show an installed profile",
@@ -645,6 +671,14 @@
           "type": "integer",
           "format": "int32",
           "description": "Count of controls in the profile."
+        }
+      }
+    },
+    "chef.automate.api.compliance.profiles.v1.Sha256": {
+      "type": "object",
+      "properties": {
+        "sha256": {
+          "type": "string"
         }
       }
     },

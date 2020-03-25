@@ -76,4 +76,17 @@ func init() {
 		}
 		return ""
 	})
+	policy.MapMethodTo("/chef.automate.api.compliance.profiles.v1.ProfilesService/MetaExists", "compliance:profiles", "search", "POST", "/compliance/profiles/metaexists", func(unexpandedResource string, input interface{}) string {
+		if m, ok := input.(*Sha256); ok {
+			return policy.ExpandParameterizedResource(unexpandedResource, func(want string) string {
+				switch want {
+				case "sha256":
+					return m.Sha256
+				default:
+					return ""
+				}
+			})
+		}
+		return ""
+	})
 }
