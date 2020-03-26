@@ -84,11 +84,11 @@ func (a *Profiles) List(ctx context.Context, in *profiles.Query) (*profiles.Prof
 	return out, nil
 }
 
-func (a *Profiles) MetaExists(ctx context.Context, in *profiles.Sha256) (*profiles.Exists, error) {
+func (a *Profiles) MetaSearch(ctx context.Context, in *profiles.Sha256) (*profiles.Missing, error) {
 	inDomain := &profileService.Sha256{}
-	out := &profiles.Exists{}
+	out := &profiles.Missing{}
 	f := func() (proto.Message, error) {
-		return a.client.MetaExists(ctx, inDomain)
+		return a.client.MetaSearch(ctx, inDomain)
 	}
 	err := protobuf.CallDomainService(in, inDomain, f, out)
 	if err != nil {

@@ -270,17 +270,17 @@ func (srv *PGProfileServer) ReadTar(in *profiles.ProfileDetails, stream profiles
 	return nil
 }
 
-// Check the existance of a profile ID(sha256) in the comp-*-profiles ES index
-func (srv *PGProfileServer) MetaExists(ctx context.Context, profileSha256 *profiles.Sha256) (*profiles.Exists, error) {
-	logrus.Debugf("Checking if profile with sha256 ID %s is already stored in ElasticSearch", profileSha256)
+// Check the existance of profile IDs(sha256) in the comp-*-profiles ES index
+func (srv *PGProfileServer) MetaSearch(ctx context.Context, profileSha256 *profiles.Sha256) (*profiles.Missing, error) {
+	logrus.Debugf("Checking if profiles with sha256 IDs %v are already stored in ElasticSearch", profileSha256.Sha256)
 
-	profileMetaExists, err := srv.esClient.ProfileExists(profileSha256.Sha256)
+	profilesMetaMissing, err := srv.esClient.ProfilesMissing(profileSha256.Sha256)
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	exists := profiles.Exists{
-		Exists: profileMetaExists,
+	exists := profiles.Missing{
+		MissingSha256: profilesMetaMissing,
 	}
 
 	return &exists, nil

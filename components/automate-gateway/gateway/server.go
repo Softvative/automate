@@ -412,7 +412,7 @@ func (s *Server) startHTTPServer() error {
 	mux.Handle("/compliance/profiles/search", v0Mux)
 
 	// redirect profiles/search to the v0Mux (needed b/c of above mux on `/compliance/profiles/`)
-	mux.Handle("/compliance/profiles/metaexists", v0Mux)
+	mux.Handle("/compliance/profiles/metasearch", v0Mux)
 
 	// redirect profiles/read to the v0Mux (needed b/c of above mux on `/compliance/profiles/`)
 	mux.Handle("/compliance/profiles/read/", v0Mux)

@@ -52,14 +52,14 @@
         ]
       }
     },
-    "/compliance/profiles/metaexists": {
+    "/compliance/profiles/metasearch": {
       "post": {
-        "operationId": "MetaExists",
+        "operationId": "MetaSearch",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/chef.automate.api.compliance.profiles.v1.Exists"
+              "$ref": "#/definitions/chef.automate.api.compliance.profiles.v1.Missing"
             }
           }
         },
@@ -365,15 +365,6 @@
         }
       }
     },
-    "chef.automate.api.compliance.profiles.v1.Exists": {
-      "type": "object",
-      "properties": {
-        "exists": {
-          "type": "boolean",
-          "format": "boolean"
-        }
-      }
-    },
     "chef.automate.api.compliance.profiles.v1.Group": {
       "type": "object",
       "properties": {
@@ -424,6 +415,17 @@
         }
       },
       "description": "Metadata about the profile."
+    },
+    "chef.automate.api.compliance.profiles.v1.Missing": {
+      "type": "object",
+      "properties": {
+        "missing_sha256": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "chef.automate.api.compliance.profiles.v1.Option": {
       "type": "object",
@@ -678,7 +680,10 @@
       "type": "object",
       "properties": {
         "sha256": {
-          "type": "string"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
