@@ -62,6 +62,10 @@ type Client interface {
 	// returns (Runs, error)
 	GetRunsPageByCursor(context.Context, string, time.Time, time.Time, map[string][]string, time.Time,
 		string, int, bool) ([]Run, error)
+	GetCheckinCountsTimeSeries(time.Time, time.Time, map[string][]string) ([]CountPeroid, error)
+	GetDeletedCountsTimeSeries(time.Time, time.Time, map[string][]string) ([]CountPeroid, error)
+	GetCreateCountsTimeSeries(time.Time, time.Time, map[string][]string) ([]CountPeroid, error)
+	GetErrors(int32, map[string][]string) ([]*ChefErrorCount, error)
 }
 
 // Types that we consume from the ingest-service
@@ -79,6 +83,12 @@ type Action ingest.InternalChefAction
 type Deprecation ingest.Deprecation
 
 type Resource ingest.Resource
+
+type CountPeroid struct {
+	Start time.Time
+	End   time.Time
+	Count int
+}
 
 type InventoryNode struct {
 	EntityUUID       string     `json:"entity_uuid"`
@@ -158,4 +168,10 @@ type EventCollection struct {
 type EventCount struct {
 	Name  string `json:"name"`
 	Count int64  `json:"count"`
+}
+
+type ChefErrorCount struct {
+	Type    string
+	Message string
+	Count   int32
 }

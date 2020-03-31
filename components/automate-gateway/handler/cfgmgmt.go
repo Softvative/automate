@@ -125,6 +125,15 @@ func (s *CfgMgmtServer) GetNodes(ctx context.Context, request *cfgReq.Nodes) (*g
 	return s.cfgMgmtClient.GetNodes(ctx, &nodesRequest)
 }
 
+func (s *CfgMgmtServer) GetErrors(ctx context.Context, request *cfgReq.Errors) (*cfgRes.Errors, error) {
+	log.WithFields(log.Fields{
+		"request": request.String(),
+		"func":    nameOfFunc(),
+	}).Debug("rpc call")
+
+	return s.cfgMgmtClient.GetErrors(ctx, request)
+}
+
 func (s *CfgMgmtServer) GetAttributes(ctx context.Context, request *cfgReq.Node) (*cfgRes.NodeAttribute, error) {
 	log.WithFields(log.Fields{
 		"request": request.String(),
@@ -221,6 +230,38 @@ func (s *CfgMgmtServer) GetRunsCounts(ctx context.Context, request *cfgReq.RunsC
 		Total:   cfgmgmtRunsCounts.Total,
 		Success: cfgmgmtRunsCounts.Success,
 		Failure: cfgmgmtRunsCounts.Failure,
+	}, nil
+}
+
+// GetCheckInCountsTimeSeries - Returns a daily time series of unique node check-ins for the number of day requested
+func (s *CfgMgmtServer) GetCheckInCountsTimeSeries(ctx context.Context,
+	request *cfgReq.CheckInCountsTimeSeries) (*cfgRes.CheckInCountsTimeSeries, error) {
+	log.WithFields(log.Fields{
+		"request": request.String(),
+		"func":    nameOfFunc(),
+	}).Debug("rpc call")
+
+	cfgMgmtRequest := &cmsReq.CheckInCountsTimeSeries{
+		Filter:  request.Filter,
+		DaysAgo: request.DaysAgo,
+	}
+
+	cfgmgmtResponse, err := s.cfgMgmtClient.GetCheckInCountsTimeSeries(ctx, cfgMgmtRequest)
+	if err != nil {
+		return &cfgRes.CheckInCountsTimeSeries{}, err
+	}
+	counts := make([]*cfgRes.CheckInCounts, len(cfgmgmtResponse.Counts))
+	for index, cfgCount := range cfgmgmtResponse.Counts {
+		counts[index] = &cfgRes.CheckInCounts{
+			Start: cfgCount.Start,
+			End:   cfgCount.End,
+			Count: cfgCount.Count,
+			Total: cfgCount.Total,
+		}
+	}
+
+	return &cfgRes.CheckInCountsTimeSeries{
+		Counts: counts,
 	}, nil
 }
 
